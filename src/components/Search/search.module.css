@@ -1,0 +1,36 @@
+
+.search{
+    height: 50px;
+    width: 100%;
+    max-width: 736px;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding: 0 1 rem;
+    display: flex;
+    justify-content: space-around;
+}
+.search input{
+    height: 100%;
+    flex: 1;
+    color: #fff;
+    background-color: #262626;
+    border: none;
+    border-radius: 8px;
+    padding: 0 16px;
+    font-size: 16px;
+}
+.search select{
+    height: 100%;
+    margin-left: 10px;
+    background-color: #4ea8de;
+    border: none;
+    color: #fff;
+    border-radius: 8px;
+    padding: 0 16px;
+}
+.miImg{
+    width: 20px;
+    margin: 0 10px;
+    height: 100%;
+    color: #808080;
+}
