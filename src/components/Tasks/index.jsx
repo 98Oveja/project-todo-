@@ -2,6 +2,12 @@ import styles from './tasks.module.css';
 import {Task} from './../Task/index'
 import {Search} from './../Search/index'
 
+//importanciones para axios
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const baseURL = 'http://localhost:3000/api/v1/tasks';
+
 // eslint-disable-next-line react/prop-types
 export function Tasks({tasks,selected,word, onFilter,onSearch, oneComplete, onDelete}){
     const taskQuantity = tasks.length;
@@ -19,36 +25,64 @@ export function Tasks({tasks,selected,word, onFilter,onSearch, oneComplete, onDe
         return taskTextLC.includes(searchTextLC);
     }
 
-    return(
+    const [tareas, setTask] = useState([]);
+
+    useEffect(()=> {
+        getTasks();
+      },[]);
+    
+    const getTasks = async ()=>{
+        const rpta= await axios.get(baseURL);
+        setTask(rpta.data);
+    }
+
+    return (
         <section className={styles.tasks}>
-            <header className={styles.header}>
-                <div>
-                    <p>To Do</p>
-                    <span>{todoTasks}</span>
-                </div>
-                <div>
-                    <p className={styles.textProgress}>In progress</p>
-                    <span>{progressTasks}</span>
-                </div>
-                <div>
-                    <p className={styles.textPurple}>Completed</p>
-                    <span>{completedTasks} of {taskQuantity}</span>
-                </div>
-            </header>
-            <div>
-                <Search selected={selected} onSearch={onSearch} onFilter={onFilter}/>
-            </div>
             <div className={styles.list}>
                 {
-                tasks.map(task => {
-                    if(selected === 'all'){
-                        return searchValidator(task.title) ? <Task key={task.id} task={task} oneComplete={oneComplete} onDelete={onDelete}/>: ""
-                    }else if(selected === task.isCompleted){
-                        return searchValidator(task.title) ? <Task key={task.id} task={task} oneComplete={oneComplete} onDelete={onDelete}/>: ""
-                    }
-                })
-            }
+                    tareas.map((tarea)=>(
+                        <div>
+                            <h1>{tarea.title}</h1>
+                            <p>{tarea.description}</p>
+                            <p>{tarea.date}</p>
+                            <p>{tarea.iscompleted}</p>
+                        </div>
+                    ))
+                }
             </div>
         </section>
     );
+
+    // return(
+    //     <section className={styles.tasks}>
+    //         <header className={styles.header}>
+    //             <div>
+    //                 <p>To Do</p>
+    //                 <span>{todoTasks}</span>
+    //             </div>
+    //             <div>
+    //                 <p className={styles.textProgress}>In progress</p>
+    //                 <span>{progressTasks}</span>
+    //             </div>
+    //             <div>
+    //                 <p className={styles.textPurple}>Completed</p>
+    //                 <span>{completedTasks} of {taskQuantity}</span>
+    //             </div>
+    //         </header>
+    //         <div>
+    //             <Search selected={selected} onSearch={onSearch} onFilter={onFilter}/>
+    //         </div>
+    //         <div className={styles.list}>
+    //             {
+    //             tasks.map(task => {
+    //                 if(selected === 'all'){
+    //                     return searchValidator(task.title) ? <Task key={task.id} task={task} oneComplete={oneComplete} onDelete={onDelete}/>: ""
+    //                 }else if(selected === task.isCompleted){
+    //                     return searchValidator(task.title) ? <Task key={task.id} task={task} oneComplete={oneComplete} onDelete={onDelete}/>: ""
+    //                 }
+    //             })
+    //         }
+    //         </div>
+    //     </section>
+    // );
 }

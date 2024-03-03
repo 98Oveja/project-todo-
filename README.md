@@ -33,3 +33,26 @@ Podemos aplicar filtros de búsqueda. La App utiliza el LocalStorage del navegad
 - Ejecutar el comando `npm install`
 - Ejcutar el comand `npm run dev`
 
+
+## PROJECT BACKEND
+### Conecting our react project with ournb  backend in Nodejs and PostgeSql
+* change a branch  `v2`
+* run the next code for view the backend project `git checkout v2`
+* be located in the `backend` folder
+* run the next code `npm intall`
+* To run the backend project we execute the following code: `npm run dev`
+### 🧪 Testing endpoints
+✅ `GET tasks:` get all the tasks
+`http://localhost:3000/api/v1/tasks`
+✅ `GET task:` get a specific task
+`http://localhost:3000/api/v1/tasks/id`
+✅ `POST task:` create new task
+`http://localhost:3000/api/v1/tasks`
+✅ `PATCH task:` update a specific task
+`http://localhost:3000/api/v1/tasks/id`
+✅ `DELETE task:` delete a specific task
+`http://localhost:3000/api/v1/tasks/id`
+### example screenshot 
+![get all task](image.png)
+![post task](image-2.png)
+

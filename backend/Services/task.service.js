@@ -45,6 +45,12 @@ class TaskService{
 
         return rows;
     }
+
+    async delete(id){
+        const query = 'DELETE FROM tasks WHERE id = $1 RETURNING *;';
+        const {rows} = await this.pool.query(query, id);
+        return rows;
+    }
 }
 
 module.exports = TaskService;
