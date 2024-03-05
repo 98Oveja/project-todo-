@@ -17,7 +17,7 @@ class TaskService{
     }
 
     async find(){
-        const query = 'SELECT * FROM tasks;';
+        const query = 'SELECT * FROM tasks order by id asc;';
         const {rows} = await this.pool.query(query);
         return rows;
     }

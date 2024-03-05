@@ -7,12 +7,29 @@ import {Header} from "./components/Header"
 import {Tasks} from "./components/Tasks"
 import {Footer} from "./components/Footer"
 
+import axios from 'axios';
+
+const baseURL = 'http://localhost:3000/api/v1/tasks';
 const LOCAL_STORAGE_KEY = "todo:savedtasks";
+
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [selected, setSelected] = useState('all');
   const [word, setWord] = useState('');
+
+  //para prueba usando axios
+  const [tareas, setTask] = useState([]);
+
+  useEffect(()=> {
+    getTasks();
+  },[]);
+
+  const getTasks = async ()=>{
+      const rpta= await axios.get(baseURL);
+      setTask(rpta.data);
+  }
+
 
   const loadSavedTasks= ()=>{
     const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -21,9 +38,9 @@ function App() {
     }
   }
 
-  useEffect(()=> {
-    loadSavedTasks();
-  },[])
+  // useEffect(()=> {
+  //   loadSavedTasks();
+  // },[])
 
   const setTasksAndSave = (newTasks) =>{
     setTasks(newTasks);
@@ -42,7 +59,7 @@ function App() {
     setWord(word);
   }
 
-  //add new task in the state
+//--------------- add new task in the state -----------------
   const addTask = (taskTitle, taskDesc, taskDate) =>{
     setTasksAndSave([
       ...tasks,
@@ -58,7 +75,7 @@ function App() {
 
 
 
-  // change task status
+//------------------ change task status --------
   const toggleTaskCompletedById = (taskId) =>{
     const newTasks = tasks.map(task =>{
       if (task.id === taskId) {
@@ -89,9 +106,11 @@ function App() {
 
   return (
     <>
-      <Header onAddTask={addTask}/>
+      <Header tareas={tareas} getTasks={getTasks} onAddTask={addTask}/>
       <Tasks 
-        tasks={tasks} 
+        tasks={tasks}
+        tareas={tareas}
+        getTasks={getTasks}
         selected={selected}
         word={word}
         onFilter={filterTodos}

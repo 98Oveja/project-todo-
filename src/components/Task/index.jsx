@@ -6,25 +6,36 @@ import { FaCalendarAlt } from "react-icons/fa";
 // import { useEffect, useState } from 'react';
 // import axios from 'axios';
 
-const baseURL = 'http://localhost:3000/api/v1/tasks';
 
-export function Task({task, oneComplete, onDelete}){
-    const [post, setPost] = useState(null);
+export function Task({tarea, task, oneComplete, onDelete}){
 
-    // useEffect(()=> {
-    //     axios.get(baseURL).then( res =>{
-    //         setPost(res.data);
-    //     });
-    //   },[]);
-
-    //   if(!post)return null;
-
-    //   return (
-    //     <div>
-    //         <h1>{post.title}</h1>
-    //         <p>{post.description}</p>
-    //     </div>
-    //   );
+    return (
+        <div className={styles.task}>
+            <button className={styles.checkContainer} onClick={()=> oneComplete(task.id)}>
+                {tarea.iscompleted === 'progress'? <div className={styles.checkProgress}/>: tarea.iscompleted === 'done'? <BsFillCheckCircleFill/> : <div/> }
+            </button>
+            <div>
+                <div>
+                    <span className={tarea.iscompleted == 'progress' ?styles.textProgress: tarea.iscompleted=='done'?styles.textCompleted:""}>{tarea.title} - </span>
+                    <span className={tarea.iscompleted == 'progress' ?styles.textProgress: tarea.iscompleted=='done'?styles.textCompleted:""}>{tarea.description}</span>
+                </div>
+                {/* <span>Date: 26/24/2020</span>
+                <span>State: ToTo</span> */}
+                <div className={styles.dateTodo}>
+                    <FaCalendarAlt />
+                    <span>{tarea.date}</span>
+                </div>
+            </div>
+            <div>
+                <button className={styles.editButton}>
+                        <FaEdit size={20} />
+                </button>
+                <button className={styles.deleteButton} onClick={()=> onDelete(task.id)}>
+                        <TbTrash size={20} />
+                </button>
+            </div>
+        </div>
+    );
     // return (
     //     <div className={styles.task}>
     //         <button className={styles.checkContainer} onClick={()=> oneComplete(task.id)}>
