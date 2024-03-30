@@ -36,6 +36,9 @@ export function Tasks({tasks,selected,word, onFilter,onSearch, oneComplete, onDe
                 </div>
             </header>
             <div>
+                <p>Total: {taskQuantity} tasks</p>
+            </div>
+            <div>
                 <Search selected={selected} onSearch={onSearch} onFilter={onFilter}/>
             </div>
             <div className={styles.list}>

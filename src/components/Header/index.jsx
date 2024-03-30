@@ -28,7 +28,7 @@ export function Header({onAddTask}){
     return (
         <header className={styles.header}>
             <img src={todoLogo} alt="logo" />
-            <p>ToDo App - VoxDataComm</p>
+            <p>Obed's ToDo App</p>
 
             <form onSubmit={handleSubmit} className={styles.newTaskForm}>
                 <input type="text" placeholder='Titulo' value={title} onChange={onChangeTitle} />
